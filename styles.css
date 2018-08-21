@@ -1,0 +1,44 @@
+
+canvas 
+{
+    display: block;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#highScore
+{
+    background: #DED895;
+}
+
+input[type=submit] 
+{
+    background: #E86100;
+    border-color: #533000;
+    color: white;
+    font-family: '8BITWONDERNominal'; 
+    font-weight: normal; 
+    font-style: normal; 
+    font-size: 10px;
+    width: 10em;  
+    height: 3em;
+    margin-left: 20%;
+    
+}
+
+input[type=submit]:hover
+{
+    background: #BF4E00;
+}
+
+label, #score
+{
+    font-family: '8BITWONDERNominal'; 
+    font-weight: normal; 
+    font-style: normal; 
+}
+
