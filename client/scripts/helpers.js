@@ -14,6 +14,18 @@ function getTouchPos(canvas, evt) {
     };
 }
 
+function onKeyDown(evt) {
+
+    if (currentstate === states.FlappyNerd && evt.keyCode == 32) {
+        currentstate = states.Game;
+        nerd.jump();
+    }
+
+    if (currentstate === states.Game && evt.keyCode == 32) {
+        nerd.jump();
+    }
+}
+
 function onpress(evt) {
     switch (currentstate) {
         case states.Splash:
@@ -35,7 +47,7 @@ function onpress(evt) {
                 mx = touchPos["x"],
                     my = touchPos["y"];
             }
-        
+
 
             if (startbtn.x < mx && mx < startbtn.x + startbtn.width && startbtn.y < my && my < startbtn.y + startbtn.height) {
                 pipes.reset();

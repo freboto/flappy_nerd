@@ -118,10 +118,10 @@
                 height = height / 1.5;
                 canvas.style.border = "1px solid #000";
                 evt = "mousedown";
-
             }
 
             document.addEventListener(evt, onpress);
+            document.addEventListener("keydown", onKeyDown, false);
 
             canvas.width = width;
             canvas.height = height;
