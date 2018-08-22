@@ -22,7 +22,7 @@
 
 <body>
     <dialog id="highScore">
-        <form action="#">
+        <form>
             <label for="playerName">Navn: </label>
             <br>
             <input id="playerName" type="text" name="playerName">
@@ -41,156 +41,162 @@
             <span id="score"></span>
             <br>
             <br>
-            <button onclick="sendContactForm()" id="subButton">Submit</button>
+            <button onclick="sendContactForm()" id="subButton" type="button">Submit</button>
         </form>
-        <dialog>
+    </dialog>
 
-            <script>
-                document.addEventListener("DOMContentLoaded", function (event) {
-                    console.log("DOM fully loaded and parsed");
-                });
 
-                function sendContactForm() {
 
-                    xhr = new XMLHttpRequest();
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            console.log("DOM fully loaded and parsed");
+        });
 
-                    xhr.open('POST', 'http://localhost:9001');
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.onload = function () {
-                        if (xhr.status !== 200) {
-                            alert('Something went wrong.  Name is now ' + xhr.responseText);
-                        }
-                    };
-                    xhr.send(JSON.stringify({playerName: (document.getElementById('playerName').value), playerEmail: (document.getElementById('playerEmail').value), playerScore: score}));
-                    currentstate = states.Splash;
-                    pipes.reset();
-                    score = 0;
-        
+        function sendContactForm() {
+
+            xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'http://localhost:9001');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function () {
+                if (xhr.status !== 200) {
+                    alert('Something went wrong.  Name is now ' + xhr.responseText);
                 }
+            };
+            xhr.send(JSON.stringify({
+                playerName: (document.getElementById('playerName').value),
+                playerEmail: (document.getElementById('playerEmail').value),
+                playerScore: score
+            }));
+            currentstate = states.Splash;
+            pipes.reset();
+            score = 0;
 
-                var
-                    canvas,
-                    ctx,
-                    width,
-                    height,
-                    okbtn,
-                    startbtn,
+        }
 
-                    updateId, //test
+        var
+            canvas,
+            ctx,
+            width,
+            height,
+            okbtn,
+            startbtn,
 
-                    fgpos = 0,
-                    frames = 0,
-                    score = 0,
-                    best = 0,
-                    gap = 110,
+            updateId, //test
 
-                    previousDelta = 0, //test
-                    fpsLimit = 80, //test
+            fgpos = 0,
+            frames = 0,
+            score = 0,
+            best = 0,
+            gap = 100,
 
-                    currentstate,
-                    states = {
-                        Splash: 0,
-                        Game: 1,
-                        Score: 2,
-                        FlappyNerd: 3
-                    }
+            previousDelta = 0, //test
+            fpsLimit = 80, //test
 
-                function main() {
-                    canvas = document.createElement("canvas");
+            currentstate,
+            states = {
+                Splash: 0,
+                Game: 1,
+                Score: 2,
+                FlappyNerd: 3
+            }
 
-                    width = window.innerWidth;
-                    height = window.innerHeight;
+        function main() {
+            canvas = document.createElement("canvas");
 
-                    var evt = "touchstart";
+            width = window.innerWidth;
+            height = window.innerHeight;
 
-
-
-                    if (width >= 500) {
-                        width = width / 5;
-                        height = height / 1.5;
-                        canvas.style.border = "1px solid #000";
-                        evt = "mousedown";
-
-                    }
-
-                    document.addEventListener(evt, onpress);
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    if (!(!!canvas.getContext && canvas.getContext("2d"))) {
-                        alert("Your browser doesn't support HTML5, please update to latest version");
-                    }
-                    ctx = canvas.getContext("2d");
+            var evt = "touchstart";
 
 
-                    currentstate = states.FlappyNerd; //startstate
 
-                    document.body.appendChild(canvas);
+            if (width >= 500) {
+                width = width / 5;
+                height = height / 1.5;
+                canvas.style.border = "1px solid #000";
+                evt = "mousedown";
 
-                    var img = new Image();
-                    img.onload = function () {
-                        initSprites(this);
-                        ctx.fillStyle = s_bg.color;
+            }
 
-                        okbtn = {
-                            x: (width - s_buttons.Ok.width) / 2,
-                            y: height - 200,
-                            width: s_buttons.Ok.width,
-                            height: s_buttons.Ok.height
-                        };
+            document.addEventListener(evt, onpress);
 
-                        startbtn = {
-                            x: (width - s_buttons.Start.width) / 2,
-                            y: height - 200,
-                            width: s_buttons.Start.width,
-                            height: s_buttons.Start.height
-                        };
+            canvas.width = width;
+            canvas.height = height;
+            if (!(!!canvas.getContext && canvas.getContext("2d"))) {
+                alert("Your browser doesn't support HTML5, please update to latest version");
+            }
+            ctx = canvas.getContext("2d");
 
 
-                        run();
-                    }
-                    img.src = "res/sheetx.png";
+            currentstate = states.FlappyNerd; //startstate
 
-                }
+            document.body.appendChild(canvas);
 
+            var img = new Image();
+            img.onload = function () {
+                initSprites(this);
+                ctx.fillStyle = s_bg.color;
 
-                function run() {
-                    var loop = function (currentDelta) { //fps test,
-                        updateId = requestAnimationFrame(loop); //fps test
-                        var delta = currentDelta - previousDelta; //fps test
-                        if (fpsLimit && delta < 1000 / fpsLimit) {
-                            return;
-                        } //fps test
-                        update();
-                        render();
-                        previousDelta = currentDelta; //fps test
-                    }
-                    window.requestAnimationFrame(loop, canvas);
-                }
+                okbtn = {
+                    x: (width - s_buttons.Ok.width) / 2,
+                    y: height - 200,
+                    width: s_buttons.Ok.width,
+                    height: s_buttons.Ok.height
+                };
 
-
-                function update() {
-                    frames++;
-
-                    if (currentstate !== states.Score) {
-                        fgpos = (fgpos - 2) % 14;
-
-                    } else {
-                        best = Math.max(best, score);
-                        localStorage.setItem("best", best);
-                    }
-
-                    if (currentstate === states.Game) {
-
-                        pipes.update();
-                    }
-                    nerd.update();
+                startbtn = {
+                    x: (width - s_buttons.Start.width) / 2,
+                    y: height - 200,
+                    width: s_buttons.Start.width,
+                    height: s_buttons.Start.height
+                };
 
 
-                }
+                run();
+            }
+            img.src = "res/sheetx.png";
 
-                main();
-            </script>
+        }
+
+
+        function run() {
+            var loop = function (currentDelta) { //fps test,
+                updateId = requestAnimationFrame(loop); //fps test
+                var delta = currentDelta - previousDelta; //fps test
+                if (fpsLimit && delta < 1000 / fpsLimit) {
+                    return;
+                } //fps test
+                update();
+                render();
+                previousDelta = currentDelta; //fps test
+            }
+            window.requestAnimationFrame(loop, canvas);
+        }
+
+
+        function update() {
+            frames++;
+
+            if (currentstate !== states.Score) {
+                fgpos = (fgpos - 2) % 14;
+
+            } else {
+                best = Math.max(best, score);
+                localStorage.setItem("best", best);
+            }
+
+            if (currentstate === states.Game) {
+
+                pipes.update();
+            }
+            nerd.update();
+
+
+        }
+
+        main();
+    </script>
 </body>
 
 </html>
