@@ -29,7 +29,6 @@ nerd = {
         else {
             this.velocity += this.gravity;
             this.y += this.velocity;
-
             if (this.y >= height - s_fg.height - 10) {
                 this.y = height - s_fg.height - 10;
                 if (currentstate === states.Game) {
@@ -37,6 +36,16 @@ nerd = {
                 }
                 this.velocity = this._jump;
             }
+
+            if (this.y <= (height - height - 50)) {
+                this.y = (height - height - 50);
+                if (currentstate === states.Game) {
+                    currentstate = states.Score;
+                }
+                this.velocity = this._jump;
+            }
+
+
 
             if (this.velocity >= this._jump) {
                 this.frame = 1;
