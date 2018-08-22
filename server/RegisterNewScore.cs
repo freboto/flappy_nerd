@@ -32,9 +32,9 @@ namespace FlappyNerd
             await scores.ExecuteAsync(TableOperation.Insert(new UserScore
             {
                 RowKey = Guid.NewGuid().ToString(),
-                PartitionKey = data.Username,
-                Email = data.Email,
-                Score = data.Score
+                PartitionKey = data.username,
+                Email = data.email,
+                Score = data.score
             }));
 
             return new HttpResponseMessage(HttpStatusCode.OK)

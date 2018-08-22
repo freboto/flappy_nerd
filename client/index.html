@@ -41,7 +41,7 @@
             <span id="score"></span>
             <br>
             <br>
-            <button onclick="sendContactForm()" id="subButton">Submit</button>
+            <button type="button" onclick="sendContactForm()" id="subButton">Submit</button>
         </form>
         <dialog>
 
@@ -54,14 +54,15 @@
 
                     xhr = new XMLHttpRequest();
 
-                    xhr.open('POST', 'http://localhost:9001');
-                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.open('POST', 'http://localhost:7071/api/RegisterNewScore');
                     xhr.onload = function () {
                         if (xhr.status !== 200) {
                             alert('Something went wrong.  Name is now ' + xhr.responseText);
                         }
                     };
-                    xhr.send(JSON.stringify({playerName: (document.getElementById('playerName').value), playerEmail: (document.getElementById('playerEmail').value), playerScore: score}));
+                    var jsonBody = JSON.stringify({username: (document.getElementById('playerName').value), email: (document.getElementById('playerEmail').value), score: score});
+                    xhr.send(jsonBody);
+
                     currentstate = states.Splash;
                     pipes.reset();
                     score = 0;
