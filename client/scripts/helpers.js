@@ -17,6 +17,10 @@ function getTouchPos(canvas, evt) {
 function onKeyDown(evt) {
 
     if (currentstate === states.FlappyNerd && evt.keyCode == 32) {
+        currentstate = states.Splash;
+    }
+
+    if (currentstate === states.Splash && evt.keyCode == 32) {
         currentstate = states.Game;
         nerd.jump();
     }
