@@ -55,11 +55,11 @@ function onpress(evt) {
                     my = touchPos["y"];
             }
 
-            if (okbtn.x < mx && mx < okbtn.x + okbtn.width && okbtn.y < my && my < okbtn.y + okbtn.height) {
-                pipes.reset();
-                currentstate = states.Splash;
-                score = 0;
-            }
+            // if (okbtn.x < mx && mx < okbtn.x + okbtn.width && okbtn.y < my && my < okbtn.y + okbtn.height) {
+            //     pipes.reset();
+            //     currentstate = states.Splash;
+            //     score = 0;
+            // }
 
 
             break;

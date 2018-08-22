@@ -30,20 +30,23 @@ function render() {
     }
 
     if (currentstate === states.Score) {
-        s_text.GameOver.draw(ctx, width2 - s_text.GameOver.width / 2, height - 600);
-        s_score.draw(ctx, width2 - s_score.width / 2, height - 540);
+        s_text.GameOver.draw(ctx, width2 - s_text.GameOver.width / 2, height - 500);
+        //s_score.draw(ctx, width2 - s_score.width / 2, height - 540);
         //s_buttons.Ok.draw(ctx, okbtn.x, okbtn.y);
 
         
-        s_numberS.draw(ctx, width2 - 47, height - 504, score, null, 10);
-        s_numberS.draw(ctx, width2 - 47, height - 462, best, null, 10);
+        //s_numberS.draw(ctx, width2 - 47, height - 504, score, null, 10);
+        //s_numberS.draw(ctx, width2 - 47, height - 462, best, null, 10);
 
         var x = document.getElementById("highScore").open;
         if(x === false){
             highScore.showModal();
             document.getElementById("playerName").value = " ";
             document.getElementById("playerEmail").value = " ";
+            document.getElementById("hiddenField").value = score;
             document.getElementById("score").innerHTML = score;
+
+            
         }
         
         //highScore = document.getElementById('highScore');

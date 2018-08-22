@@ -15,6 +15,27 @@ canvas
     background: #DED895;
 }
 
+button
+{
+    background: #E86100;
+    border-color: #533000;
+    color: white;
+    font-family: '8BITWONDERNominal'; 
+    font-weight: normal; 
+    font-style: normal; 
+    font-size: 10px;
+    width: 10em;  
+    height: 3em;
+    margin-left: 20%;
+
+}
+
+button:hover
+{
+    background: #BF4E00;
+}
+
+
 input[type=submit] 
 {
     background: #E86100;
