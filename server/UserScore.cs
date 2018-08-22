@@ -6,6 +6,6 @@ namespace FlappyNerd
     {
         public string Username => PartitionKey;
         public string Email { get; set; }
-        public int Score { get; set; }
+        public string Score { get; set; }
     }
 }
