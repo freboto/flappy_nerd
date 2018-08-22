@@ -1,0 +1,11 @@
+POST http://localhost:7071/api/RegisterNewScore HTTP/1.1
+content-type: application/json
+
+{
+    "Username": "Kofoed",
+    "Score": 180
+}
+
+###
+
+GET http://localhost:7071/api/FetchHighScores HTTP/1.1
