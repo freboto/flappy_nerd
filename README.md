@@ -19,6 +19,8 @@ az functionapp create \
 --resource-group wineventory --consumption-plan-location northeurope \
 --name winefunctions --storage-account wineventorystorage  
 
+# Enable cors and change to function runtime version 2 before first deployment
+
 zip -r functions.zip ./
 
 az functionapp deployment source config-zip -g wineventory -n \

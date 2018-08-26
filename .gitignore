@@ -1,6 +1,9 @@
 
 # Created by https://www.gitignore.io/api/macos,windows,visualstudiocode
 
+#Ignored after adding
+client/scripts/config.js
+
 ### macOS ###
 *.DS_Store
 .AppleDouble

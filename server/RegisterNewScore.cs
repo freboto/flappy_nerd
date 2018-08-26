@@ -26,15 +26,18 @@ namespace FlappyNerd
 
             string jsonContent = await req.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject(jsonContent);
+            var username = data.username.Trim().ToLower();
+            var email = data.email.Trim().ToLower();
+            var score = data.score;
 
-            if (data is null || data.Username is null || data.Score is null) new BadRequestResult();
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email)) return new BadRequestResult();
 
             await scores.ExecuteAsync(TableOperation.Insert(new UserScore
             {
                 RowKey = Guid.NewGuid().ToString(),
-                PartitionKey = data.username,
-                Email = data.email,
-                Score = data.score
+                PartitionKey = username,
+                Email = email,
+                Score = score
             }));
 
             return new HttpResponseMessage(HttpStatusCode.OK)
