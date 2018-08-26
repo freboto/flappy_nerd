@@ -19,7 +19,7 @@ namespace FlappyNerd
     {
         [FunctionName("RegisterNewScore")]
         public async static Task<object> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequestMessage req, ILogger log,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequestMessage req, ILogger log,
             [Table("UserScores")]CloudTable scores)
         {
             log.LogInformation("Register new score request recieved");
