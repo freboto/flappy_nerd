@@ -1,6 +1,8 @@
 dotnet publish;
 pushd bin/Debug/netstandard2.0/publish/
 
+zip -r functions.zip ./
+
 curl -X POST -u itv-ank --data-binary @"functions.zip" https://flappy-nerd.scm.azurewebsites.net/api/zipdeploy
 
 popd

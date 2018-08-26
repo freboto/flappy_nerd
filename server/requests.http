@@ -1,5 +1,4 @@
-POST http://localhost:7071/api/RegisterNewScore HTTP/1.1
-content-type: application/json
+POST https://flappy-nerd.azurewebsites.net/api/RegisterNewScore?code=6WQ5BsRP08zWwCWQRId7bWJEvSRsBtX4V31w1JdofnacSy071b4G/A== HTTP/1.1
 
 {
     "username": "koooOOOooooOoOOOofoed  ",
@@ -9,4 +8,4 @@ content-type: application/json
 
 ###
 
-GET http://localhost:7071/api/FetchHighScores HTTP/1.1
+GET  https://flappy-nerd.azurewebsites.net/api/FetchHighScores?code=6WQ5BsRP08zWwCWQRId7bWJEvSRsBtX4V31w1JdofnacSy071b4G/A== HTTP/1.1
