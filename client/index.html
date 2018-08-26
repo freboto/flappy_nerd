@@ -15,6 +15,8 @@
     <script src="scripts/pipe.js" type="text/javascript"></script>
     <script src="scripts/helpers.js" type="text/javascript"></script>
     <script src="scripts/render.js" type="text/javascript"></script>
+    <script src="scripts/config.js" type="text/javascript"></script>
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css" />
 
@@ -56,7 +58,7 @@
 
             xhr = new XMLHttpRequest();
 
-            xhr.open('POST', 'http://localhost:7071/api/RegisterNewScore');
+            xhr.open('POST', `${config.baseUrl}RegisterNewScore?code=${config.apiKey}`);
             xhr.onload = function () {
                 if (xhr.status !== 200) {
                     alert('Something went wrong.  Name is now ' + xhr.responseText);
