@@ -26,8 +26,8 @@ namespace FlappyNerd
 
             string jsonContent = await req.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject(jsonContent);
-            var username = data.username.Trim().ToLower();
-            var email = data.email.Trim().ToLower();
+            var username = data.username.ToString().Trim().ToLower();
+            var email = data.email.ToString().Trim().ToLower();
             var score = data.score;
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email)) return new BadRequestResult();
