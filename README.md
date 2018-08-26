@@ -27,3 +27,9 @@ az functionapp deployment source config-zip -g wineventory -n \
 winefunctions --src functions.zip
 
 curl -X POST -u anderskofoed --data-binary @"functions.zip" https://wineventory.scm.azurewebsites.net/api/zipdeploy
+
+
+
+## Deploy static files
+
+for f in $(find ./client); do az storage blob upload -c app --account-name flappynerdstorage -f $f -n ${f#*/client/}; done
