@@ -56,10 +56,27 @@ input[type=submit]:hover
     background: #BF4E00;
 }
 
-label, #score
+label, #score, ol
 {
     font-family: '8BITWONDERNominal'; 
     font-weight: normal; 
     font-style: normal; 
 }
 
+
+ol{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 20px;
+}
+
+li{
+    margin: 10px 0;
+}
+
+li:first-child{
+
+    font-size: 30px;
+    margin: 20px 0;
+}

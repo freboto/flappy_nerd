@@ -24,8 +24,13 @@
 
 <body>
 
+    <ol id="highscore">
 
-    <button type="button" onclick="getHighScoreList()">Change Content</button>
+
+
+    </ol>
+
+    
     <dialog id="highScore">
         <form>
             <label for="playerName">Navn: </label>
@@ -91,13 +96,24 @@
                     highScoresListFetched(xhr.responseText);
                 }
             };
-            
+
             xhr.send();
         }
 
 
         function highScoresListFetched(highScoresReponse) {
             highScores = JSON.parse(highScoresReponse);
+
+
+            var highscoreEl = document.getElementById("highscore");
+
+            for (let element of highScores) {
+
+                var el = document.createElement("li", "test");
+                el.innerHTML = element.Username + ' - ' + element.Score;
+                highscoreEl.appendChild(el);
+
+            }
 
         }
 
