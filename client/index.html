@@ -24,12 +24,7 @@
 
 <body>
 
-    <ol id="highscore">
-
-
-
-    </ol>
-
+    <ol id="highscore"></ol>
 
     <dialog id="highScore">
         <form>
@@ -57,6 +52,8 @@
     </dialog>
 
 
+    <div id="position"></div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
             console.log("DOM fully loaded and parsed");
@@ -64,6 +61,7 @@
 
 
         let highScores = [];
+        let currentPosition = -1;
         function sendContactForm() {
 
             xhr = new XMLHttpRequest();
@@ -84,6 +82,9 @@
             currentstate = states.Splash;
             pipes.reset();
             score = 0;
+            
+            var position = document.getElementById("position");
+            position.innerHTML = "";
 
         }
 
@@ -101,6 +102,22 @@
         }
 
 
+
+        function updateCurrentPosition() {
+            var newCurrentPosition = highScores.findIndex(x => x.Score < score);
+            if (newCurrentPosition >= 0 && newCurrentPosition != currentPosition) {
+                var position = document.getElementById("position");
+                position.innerHTML = "";
+                currentPosition = newCurrentPosition;
+
+                var el = document.createElement("div")
+                el.innerHTML = currentPosition > -1 ? currentPosition + 1 : ">" + highScores.length;
+                position.appendChild(el);
+            }
+
+
+        }
+
         function highScoresListFetched(highScoresReponse) {
             highScores = JSON.parse(highScoresReponse);
 
@@ -110,7 +127,7 @@
 
             for (let element of highScores) {
 
-                var el = document.createElement("li", "test");
+                var el = document.createElement("li");
                 el.innerHTML = element.Username + ' - ' + element.Score;
                 highscoreEl.appendChild(el);
 
@@ -215,6 +232,7 @@
                 } //fps test
                 update();
                 render();
+                updateCurrentPosition();
                 previousDelta = currentDelta; //fps test
             }
             window.requestAnimationFrame(loop, canvas);

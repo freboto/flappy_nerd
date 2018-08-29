@@ -1,82 +1,101 @@
-
-canvas 
-{
-    display: block;
-    position: absolute;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+canvas {
+  display: block;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-#highScore
-{
-    background: #DED895;
+#highScore {
+  background: #DED895;
 }
 
-button
-{
-    background: #E86100;
-    border-color: #533000;
-    color: white;
-    font-family: '8BITWONDERNominal'; 
-    font-weight: normal; 
-    font-style: normal; 
-    font-size: 10px;
-    width: 10em;  
-    height: 3em;
-    margin-left: 20%;
+button {
+  background: #E86100;
+  border-color: #533000;
+  color: white;
+  font-family: '8BITWONDERNominal';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 10px;
+  width: 10em;
+  height: 3em;
+  margin-left: 20%;
 
 }
 
-button:hover
-{
-    background: #BF4E00;
+button:hover {
+  background: #BF4E00;
 }
 
+input[type=submit] {
+  background: #E86100;
+  border-color: #533000;
+  color: white;
+  font-family: '8BITWONDERNominal';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 10px;
+  width: 10em;
+  height: 3em;
+  margin-left: 20%;
 
-input[type=submit] 
-{
-    background: #E86100;
-    border-color: #533000;
-    color: white;
-    font-family: '8BITWONDERNominal'; 
-    font-weight: normal; 
-    font-style: normal; 
-    font-size: 10px;
-    width: 10em;  
-    height: 3em;
-    margin-left: 20%;
-    
 }
 
-input[type=submit]:hover
-{
-    background: #BF4E00;
+input[type=submit]:hover {
+  background: #BF4E00;
 }
 
-label, #score, ol
-{
-    font-family: '8BITWONDERNominal'; 
-    font-weight: normal; 
-    font-style: normal; 
+#position,
+#score,
+label,
+ol {
+  font-family: '8BITWONDERNominal';
+  font-weight: normal;
+  font-style: normal;
 }
 
-
-ol{
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-left: 20px;
+#position {
+  position: fixed;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+  margin-left: 20px;
+  font-size: 200px;
 }
 
-li{
-    margin: 10px 0;
+#position div {
+  animation: scaleIn 1s ease-in-out forwards;
 }
 
-li:first-child{
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+  }
 
-    font-size: 30px;
-    margin: 20px 0;
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+
+}
+
+ol {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 20px;
+}
+
+li {
+  margin: 10px 0;
+}
+
+li:first-child {
+
+  font-size: 30px;
+  margin: 20px 0;
 }
