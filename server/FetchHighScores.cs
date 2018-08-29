@@ -24,13 +24,15 @@ namespace FlappyNerd
             [Table("UserScores")]CloudTable scores)
         {
             var employeesQuery = await scores.ExecuteQuerySegmentedAsync(new TableQuery<UserScore>(), null);
-            var highscores = employeesQuery.Results
+            var highscores = employeesQuery.Results.ToList();
+
+            var topScores = highscores
                 .OrderByDescending(score => score.Score)
                 .Take(10).ToList();
 
             return new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(highscores), Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonConvert.SerializeObject(topScores), Encoding.UTF8, "application/json")
             };
         }
     }
