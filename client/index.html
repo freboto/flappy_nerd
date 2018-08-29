@@ -16,13 +16,16 @@
     <script src="scripts/helpers.js" type="text/javascript"></script>
     <script src="scripts/render.js" type="text/javascript"></script>
     <script src="scripts/config.js" type="text/javascript"></script>
-    
+
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css" />
 
 </head>
 
 <body>
+
+
+    <button type="button" onclick="getHighScoreList()">Change Content</button>
     <dialog id="highScore">
         <form>
             <label for="playerName">Navn: </label>
@@ -54,6 +57,8 @@
             console.log("DOM fully loaded and parsed");
         });
 
+
+        let highScores = [];
         function sendContactForm() {
 
             xhr = new XMLHttpRequest();
@@ -77,6 +82,24 @@
 
         }
 
+        function getHighScoreList() {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('Get', `${config.baseUrl}FetchHighScores?code=${config.apiKey}`, true);
+            xhr.onload = function () {
+                if (this.status == 200 && this.readyState == 4) {
+                    highScoresListFetched(xhr.responseText);
+                }
+            };
+            
+            xhr.send();
+        }
+
+
+        function highScoresListFetched(highScoresReponse) {
+            highScores = JSON.parse(highScoresReponse);
+
+        }
 
         var
             canvas,
@@ -161,6 +184,8 @@
             }
             img.src = "res/sheetx.png";
 
+
+
         }
 
 
@@ -199,6 +224,7 @@
 
         }
 
+        getHighScoreList();
         main();
     </script>
 </body>
