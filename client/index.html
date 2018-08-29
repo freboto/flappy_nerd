@@ -30,7 +30,7 @@
 
     </ol>
 
-    
+
     <dialog id="highScore">
         <form>
             <label for="playerName">Navn: </label>
@@ -70,8 +70,8 @@
 
             xhr.open('POST', `${config.baseUrl}RegisterNewScore?code=${config.apiKey}`);
             xhr.onload = function () {
-                if (xhr.status !== 200) {
-                    alert('Something went wrong.  Name is now ' + xhr.responseText);
+                if (xhr.status == 200) {
+                    getHighScoreList();
                 }
             };
             var jsonBody = JSON.stringify({
@@ -106,6 +106,7 @@
 
 
             var highscoreEl = document.getElementById("highscore");
+            highscoreEl.innerHTML = "";
 
             for (let element of highScores) {
 
