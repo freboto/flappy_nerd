@@ -63,6 +63,10 @@
         let highScores = [];
         let currentPosition = -1;
         function sendContactForm() {
+            var formEmail = (document.getElementById('playerEmail').value);
+            if(!validateEmail(formEmail)){
+                return;
+            }
 
             xhr = new XMLHttpRequest();
 
@@ -74,7 +78,7 @@
             };
             var jsonBody = JSON.stringify({
                 username: (document.getElementById('playerName').value),
-                email: (document.getElementById('playerEmail').value),
+                email: formEmail,
                 score: score
             });
             xhr.send(jsonBody);
@@ -86,6 +90,11 @@
             var position = document.getElementById("position");
             position.innerHTML = "";
 
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
         }
 
         function getHighScoreList() {
