@@ -20,7 +20,7 @@ namespace FlappyNerd
     {
         [FunctionName("FetchHighScores")]
         public async static Task<object> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)]HttpRequestMessage req, ILogger log,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequestMessage req, ILogger log,
             [Table("UserScores")]CloudTable scores)
         {
             var employeesQuery = await scores.ExecuteQuerySegmentedAsync(new TableQuery<UserScore>(), null);
