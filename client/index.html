@@ -62,6 +62,7 @@
 
         let highScores = [];
         let currentPosition = -1;
+
         function sendContactForm() {
             var formEmail = (document.getElementById('playerEmail').value);
             if(!validateEmail(formEmail)){
@@ -114,34 +115,29 @@
 
         function updateCurrentPosition() {
             var newCurrentPosition = highScores.findIndex(x => x.Score < score);
-            if (newCurrentPosition >= 0 && newCurrentPosition != currentPosition) {
+            if (newCurrentPosition != currentPosition) {
                 var position = document.getElementById("position");
                 position.innerHTML = "";
                 currentPosition = newCurrentPosition;
 
                 var el = document.createElement("div")
-                el.innerHTML = currentPosition > -1 ? currentPosition + 1 : ">" + highScores.length;
+                el.innerHTML = currentPosition > -1 ? currentPosition + 1 : highScores.length;
                 position.appendChild(el);
             }
-
-
         }
 
         function highScoresListFetched(highScoresReponse) {
             highScores = JSON.parse(highScoresReponse);
-
-
+            currentPosition = highScores.length;
             var highscoreEl = document.getElementById("highscore");
             highscoreEl.innerHTML = "";
 
-            for (let element of highScores) {
+            for (let element of highScores.slice(0,10)) {
 
                 var el = document.createElement("li");
                 el.innerHTML = element.Username + ' - ' + element.Score;
                 highscoreEl.appendChild(el);
-
             }
-
         }
 
         var

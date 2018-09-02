@@ -28,7 +28,7 @@ namespace FlappyNerd
 
             var topScores = highscores
                 .OrderByDescending(score => score.Score)
-                .Take(10).ToList();
+                .Take(50).ToList();
 
             return new HttpResponseMessage(HttpStatusCode.OK)
             {
