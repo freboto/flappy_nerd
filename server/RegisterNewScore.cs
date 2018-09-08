@@ -30,7 +30,7 @@ namespace FlappyNerd
             string email = data.email.ToString().Trim().ToLower();
             int score = data.score;
 
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) || !IsValidEmail(email)) return new BadRequestResult();
+            if (string.IsNullOrWhiteSpace(username)) return new BadRequestResult();
 
             await scores.ExecuteAsync(TableOperation.Insert(new UserScore
             {
