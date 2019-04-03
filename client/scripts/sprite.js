@@ -39,7 +39,7 @@ function initSprites(img) {
 	s_fg = new Sprite(img, 138, 0, 112, 56);
 
 	s_pipeNorth = new Sprite(img, 251, 0, 26, 200);
-	s_pipeSouth = new Sprite(img, 277, 0, 26, 285);
+	s_pipeSouth = new Sprite(img, 277, 0, 26, 370);
 
 	s_text = {
 		FlappyNerd: new Sprite(img, 59, 115, 96, 22),

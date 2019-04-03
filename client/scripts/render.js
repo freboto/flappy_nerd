@@ -11,6 +11,7 @@ function render() {
 
     s_fg.draw(ctx, fgpos, height - s_fg.height);
     s_fg.draw(ctx, fgpos + s_fg.width, height - s_fg.height);
+    s_fg.draw(ctx, fgpos + s_fg.width + s_fg.width, height - s_fg.height);
 
 
     var width2 = width / 2;
