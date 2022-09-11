@@ -1,8 +1,8 @@
-POST https://flappy-nerd.azurewebsites.net/api/RegisterNewScore?code=6WQ5BsRP08zWwCWQRId7bWJEvSRsBtX4V31w1JdofnacSy071b4G/A== HTTP/1.1
+POST https://flappy-nerd-highscores.azurewebsites.net/api/registernewscore?code=a336v8keE6U4vR7JWNZa5rup9VefR8aQk9oP2bgRj9zWAzFu5Z7xzA== HTTP/1.1
 
 {
-    "username": "koooOOOooooOoOOOofoed  ",
-    "email": "anders.kfd@gmail.com  ",
+    "username": "koooOOOooooOoOOOofoed",
+    "email": "anders.kfd@gmail.com",
     "score": 400
 }
 

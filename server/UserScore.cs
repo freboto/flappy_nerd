@@ -1,8 +1,10 @@
-using Microsoft.WindowsAzure.Storage.Table;
+using System;
+using Azure;
+using Azure.Data.Tables;
 
 namespace FlappyNerd
 {
-    public class UserScore : TableEntity
+    public class UserScore : ITableEntity
     {
         private string username;
         public string Username
@@ -18,5 +20,9 @@ namespace FlappyNerd
         }
         public string Email { get; set; }
         public int Score { get; set; }
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
     }
 }

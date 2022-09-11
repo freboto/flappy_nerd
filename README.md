@@ -2,34 +2,11 @@
 
 az login
 
-az account set -s <subId>
-
-az group create --name wineventory --location northeurope
-
-<!-- Create storage account -->
-az storage account create --name wineventorystorage --location northeurope --resource-group wineventory --sku Standard_GRS
-
-az storage container create --name webapp --account-name wineventorystorage --public-access blob
-
-<!-- Deploy app files to blob container -->
-for f in $(find ./build); do az storage blob upload -c webapp --account-name wineventorystorage -f $f -n ${f#*/build/}; done
-
-<!-- Create function app -->
-az functionapp create \
---resource-group wineventory --consumption-plan-location northeurope \
---name winefunctions --storage-account wineventorystorage  
-
-# Enable cors and change to function runtime version 2 before first deployment
-
-zip -r functions.zip ./
-
-az functionapp deployment source config-zip -g wineventory -n \
-winefunctions --src functions.zip
-
-curl -X POST -u anderskofoed --data-binary @"functions.zip" https://wineventory.scm.azurewebsites.net/api/zipdeploy
-
-
+- Choose subscription: `az account set --subscription <subscription id>`
+- Deploy to function app: `func azure functionapp publish employee-image-provider` --csharp
 
 ## Deploy static files
 
-for f in $(find ./client); do az storage blob upload -c app --account-name flappynerdstorage -f $f -n ${f#*/client/}; done
+export AZURE_STORAGE_SAS_TOKEN=<sastoken>
+
+for f in $(find ./client); do az storage blob upload -c app --account-name itvflappynerdb9df --container-name flappy-nerd-client -f $f -n ${f#\*/client/}; done

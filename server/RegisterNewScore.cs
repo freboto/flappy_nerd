@@ -1,18 +1,13 @@
 using System;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 
 namespace FlappyNerd
@@ -21,8 +16,8 @@ namespace FlappyNerd
     {
         [FunctionName("RegisterNewScore")]
         public async static Task<object> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequestMessage req, ILogger log,
-            [Table("UserScores")]CloudTable scores)
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestMessage req, ILogger log,
+            [Table("UserScores")] IAsyncCollector<UserScore> scores)
         {
             string jsonContent = await req.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject(jsonContent);
@@ -32,19 +27,27 @@ namespace FlappyNerd
 
             if (string.IsNullOrWhiteSpace(username)) return new BadRequestResult();
 
-            await scores.ExecuteAsync(TableOperation.Insert(new UserScore
+            try
             {
-                RowKey = Guid.NewGuid().ToString(),
-                PartitionKey = "nerd",
-                Username = DemystifyUsername(username),
-                Email = email,
-                Score = score
-            }));
+                await scores.AddAsync(new UserScore
+                {
+                    RowKey = Guid.NewGuid().ToString(),
+                    PartitionKey = "nerd",
+                    Username = DemystifyUsername(username),
+                    Email = email,
+                    Score = score
+                });
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("New score registered")
+                };
+            }
+            catch (Exception ex)
+            {
+                log.LogError(ex.Message);
+                return new BadRequestResult();
+            }
 
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent("New score registered")
-            };
         }
 
         public static string DemystifyUsername(string username)
